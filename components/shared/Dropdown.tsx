@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { startTransition, useState } from 'react'
 import {
     Select,
     SelectContent,
@@ -18,6 +18,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
   } from "@/components/ui/alert-dialog"
+import { Input } from '../ui/input'
   
 
 type DropdownProps = {
@@ -27,6 +28,11 @@ type DropdownProps = {
 
 const Dropdown = ({ value, onChangeHandler}: DropdownProps) => {
     const [categories, setCategories] = useState<ICategory[]>([]);
+    const [ newCategory, setNewCategory ] = useState('');
+
+    const handleAddCategory = () => {
+      
+    }
 
   return (
     <Select onValueChange={onChangeHandler} defaultValue={value}>
@@ -47,13 +53,13 @@ const Dropdown = ({ value, onChangeHandler}: DropdownProps) => {
             <AlertDialogHeader>
             <AlertDialogTitle>New Category</AlertDialogTitle>
             <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete your account
-                and remove your data from our servers.
+              <Input type='text' placeholder='Category Name' className='input-field mt-3'
+              onChange={(e) => setNewCategory(e.target.value)} />
             </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Continue</AlertDialogAction>
+            <AlertDialogAction onClick={() => startTransition(handleAddCategory)}>Add</AlertDialogAction>
             </AlertDialogFooter>
         </AlertDialogContent>
         </AlertDialog>
